@@ -59,7 +59,7 @@ To use the Webhook sample, you need the following:
 
 #### Choose the tenant where you want to create your app
 
-1. Sign in to the [Azure Active Directory admin center](https://aad.portal.azure.com) using either a work or school account.
+1. Sign in to the [EntraId admin center](https://entra.microsoft.com/) using either a work or school account.
 1. If your account is present in more than one Azure AD tenant:
     1. Select your profile from the menu on the top right corner of the page, and then **Switch directory**.
     1. Change your session to the Azure AD tenant where you want to create your application.
@@ -173,6 +173,12 @@ You can use the ngrok web interface `http://127.0.0.1:4040` to inspect the HTTP 
 1. Post a message to a channel in any team in Microsoft Teams. A notification appears showing the sender's name and the message.
 
     ![A screenshot of the Teams channel notifications page](images/teams-channel-notifications.png)
+
+## How it works
+
+die Client-Side (Browser) hat einen WebSocket zum NodeJS-Server
+der WebHook im NodeJS-Server schick dann eine Message an den Browser.
+`public\javascript\watch-client.js(8)`
 
 ## Troubleshooting
 

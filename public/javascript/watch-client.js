@@ -11,7 +11,7 @@ socket.on('notification_received', (notificationData) => {
   // Create a new table row with data from the notification
   const tableRow = document.createElement('tr');
 
-  if (notificationData.type == 'message') {
+  if (notificationData.type == '#Microsoft.Graph.Message') {
     // Email messages log subject and message ID
     const subjectCell = document.createElement('td');
     subjectCell.innerText = notificationData.resource.subject;
@@ -20,6 +20,15 @@ socket.on('notification_received', (notificationData) => {
     const idCell = document.createElement('td');
     idCell.innerText = notificationData.resource.id;
     tableRow.appendChild(idCell);
+  } else if (notificationData.type == '#Microsoft.Graph.Event') {
+    // Calender Event
+    const subjectCell = document.createElement('td');
+    subjectCell.innerText = notificationData.resource.subject;
+    tableRow.appendChild(subjectCell);
+
+    const typeCell = document.createElement('td');
+    typeCell.innerText = "event";
+    tableRow.appendChild(typeCell);
   } else if (notificationData.type === 'chatMessage') {
     // Teams channel messages log sender and text
     const senderCell = document.createElement('td');

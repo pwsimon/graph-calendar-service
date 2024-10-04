@@ -69,12 +69,16 @@ router.get('/callback', async function (req, res) {
         ? `${req.protocol}://${req.hostname}`
         : process.env.NGROK_PROXY;
 
-    // Create the subscription
+    /*
+    * Create the subscription
+    * in unserem fall brauchen wir hier die folgende anpassung:
+    * resource: 'me/mailFolders/inbox/messages' => 'me/events' // calender anstelle von mail
+    */
     const subscription = await client.api('/subscriptions').create({
-      changeType: 'created',
+      changeType: 'created,updated,deleted', // [changeType](https://learn.microsoft.com/en-us/graph/api/resources/subscription?view=graph-rest-1.0#properties)
       notificationUrl: `${notificationHost}/listen`,
       lifecycleNotificationUrl: `${notificationHost}/lifecycle`,
-      resource: 'me/mailFolders/inbox/messages',
+      resource: 'me/events',
       clientState: process.env.SUBSCRIPTION_CLIENT_STATE,
       includeResourceData: false,
       expirationDateTime: new Date(Date.now() + 3600000).toISOString(),
@@ -82,9 +86,7 @@ router.get('/callback', async function (req, res) {
 
     // Save the subscription ID in the session
     req.session.subscriptionId = subscription.id;
-    console.log(
-      `Subscribed to user's inbox, subscription ID: ${subscription.id}`,
-    );
+    console.log(`Subscribed to: ${subscription.resource}, subscription ID: ${subscription.id}`);
 
     // Add the subscription to the database
     await dbHelper.addSubscription(subscription.id, req.session.userAccountId);

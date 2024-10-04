@@ -42,7 +42,7 @@ describe('Notification URL', function () {
       process.env.NODE_ENV === 'production' ||
         (process.env.NGROK_PROXY &&
           process.env.NGROK_PROXY.length > 0 &&
-          process.env.NGROK_PROXY.indexOf('ngrok') > 0),
+          process.env.NGROK_PROXY.indexOf('ttps://') > 0),
     );
   });
 });

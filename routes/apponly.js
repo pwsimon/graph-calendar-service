@@ -44,7 +44,13 @@ router.get('/subscribe', async function (req, res) {
       }
     }
 
-    // Create the subscription
+    /*
+    * Create the subscription
+    * in unserem fall brauchen wir hier die folgende anpassung:
+    * resource: '/teams/getAllMessages' => '/users/{id}/events'
+    * ich will eig. nicht eine subscription pro user sondern fuer einen Tenant
+    * resource: '/users/events' oder so ..., weil einen User hab ich hier schon gar nicht.
+    */
     const subscription = await client.api('/subscriptions').create({
       changeType: 'created',
       notificationUrl: `${notificationHost}/listen`,
