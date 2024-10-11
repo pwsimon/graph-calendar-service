@@ -56,7 +56,7 @@ jobs:
     # Uploading application to build artifact
     - name: Upload Application to Build Artifact
       continue-on-error: false
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: buildartifacts
         path: buildartifacts
