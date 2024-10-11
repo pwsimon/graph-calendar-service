@@ -9,6 +9,7 @@
 # task-psi> needs config to Start Manually
 
 on:
+  workflow_dispatch:
   push:
     branches: 
       - master
