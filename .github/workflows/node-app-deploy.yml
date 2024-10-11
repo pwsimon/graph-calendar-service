@@ -74,7 +74,7 @@ jobs:
         
       # Downloading build artifact
       - name: Download a Build Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         continue-on-error: false
         with:
           name: buildartifacts
